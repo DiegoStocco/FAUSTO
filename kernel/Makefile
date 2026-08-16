@@ -12,7 +12,7 @@ asm_objs = $(patsubst arch/$(ARCH)/%.S, arch/$(ARCH)/build/%.o, $(asm_srcs))
 
 linker = arch/$(ARCH)/linker.ld
 
-TARGET = arch/$(ARCH)/fausto
+TARGET = arch/$(ARCH)/build/fausto
 
 .PHONY: clean
 
