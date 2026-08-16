@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// Checking for wrong OS target for the compiler 
+// Checking for wrong OS target for the compiler // 
 #if defined(__linux__)
 #error "You are not using a cross-compiler, you will most certainly run into trouble"
 #endif
@@ -11,7 +11,7 @@
 #error "This kernel must be compiled with an i386-elf compiler"
 #endif
 
-// Hardweare text mode color constants
+// Hardware text mode color constants //
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
 	GA_COLOR_BLUE = 1,
@@ -30,3 +30,41 @@ enum vga_color {
 	VGA_COLOR_LIGHT_BROWN = 14,
 	VGA_COLOR_WHITE = 15,
 };
+
+static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) {
+	return fg | bg << 4;
+}
+
+static inline uint16_t vga_entry(unsigned char uc, uint8_t color) {
+	return (uint16_t) uc | (uint16_t) color << 8;
+}
+
+size_t strlen(const char* str) {
+	size_t len = 0;
+	while (str[len])
+		len++;
+	return len;
+}
+
+// VGA base options //
+#define VGA_WIDTH	80
+#define VGA_HEIGHT	15
+#define VGA_MEMORY	0xB8000
+
+size_t terminal_row;
+size_t terminal_column;
+uint8_t terminal_color;
+uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
+
+void terminal_initialize(void) {
+	terminal_row = 0;
+	terminal_column = 0;
+	terminal_color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+
+	for (size_t y = 0; y < VGA_HEIGHT; y++) {
+		for (size_t x = 0; x < VGA_WIDTH; x++) {
+			const size_t index = y * VGA_WIDTH + x;
+			terminal_buffer[index] = vga_entry(' ', terminal_color);
+		}
+	}
+}
