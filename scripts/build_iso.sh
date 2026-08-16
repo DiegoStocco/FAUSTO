@@ -32,6 +32,8 @@ if [ -d "$ISO_BUILD_DIR" ]; then
 	log "ISO build directory not found, creating"
 	mkdir -p $ISO_BUILD_DIR
 fi
+log "Clearing ISO build directory"
+rm -rf $ISO_BUILD_DIR/*
 
 log "Creating grub directory"
 mkdir -p "$ISO_BUILD_DIR/boot/grub"
