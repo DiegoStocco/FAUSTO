@@ -36,7 +36,7 @@ page_table:
 gdt:
 	.quad 0x0000000000000000	# 0x00: null descriptor
 
-	# 0x80: code segment
+	# 0x08: code segment
 	.word 0xFFFF			# limit low
 	.word 0x0000			# base low
 	.byte 0x00			# base middle
