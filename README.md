@@ -1,4 +1,4 @@
-# FAUSTO Kenel
+# FAUSTO Kernel
 _"FAUSTO hA Usurpato Simultaneamente Tre Orcolat"_ is a **free** and **open-source kernel** developed by two solo developers located in Italy. The project is currently being worked on and Work In Progress.
 
 ## Architecture
