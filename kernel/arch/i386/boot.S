@@ -1,4 +1,5 @@
 /* Declare constanst for the multiboot header */
+#include <stdlib.h>
 .set ALIGN, 	1<<0			/* align loaded modules on page boundaries */
 .set MEMINFO, 	1<<1			/* provide memory map */
 .set FLAGS,	ALIGN | MEMINFO		/* Multiboot 'flag' field */
@@ -19,27 +20,60 @@ stack_bottom:
 .skip 16384 # 16 KiB
 stack_top:
 
+.section .data
+
+.align 8
+gdt:
+	.quad 0x0000000000000000	# 0x00: null descriptor
+
+	# 0x80: code segment
+	.word 0xFFFF			# limit low
+	.word 0x0000			# base low
+	.byte 0x00			# base middle
+	.byte 0x9A			# access: present, ring 0, code ,readable
+	.byte 0xCF			# granularity=4K, 32-but, limit high
+	.byte 0x00			# base high
+
+	# 0x10: data segment
+	.word 0xFFFF
+	.word 0x0000
+	.byte 0x00
+	.byte 0x92			# present, ring 0, data, writable
+	.byte 0xCF			# granularity=4K, 32-bit
+	.byte 0x00
+gdt_end:
+
+gdt_descriptor:
+	.word gdt_end - gdt - 1		# GDT limit
+	.long gdt			# GDT base
+
 .section .text
 .global _start
 .type _start, @function
 _start:
 	/* 32-bit protected mode, no interrupts or paging active */
-
-	/* Setting up the stack by assigning the 'esp' register the address of the top of the stack. esp will be the stack pointer */
+	cli
+	/* setting up stack pointer */
 	mov $stack_top, %esp
 
-	/*
-	This is a good place to initialize crucial processor state before the
-	high-level kernel is entered. It's best to minimize the early
-	environment where crucial features are offline. Note that the
-	processor is not fully initialized yet: Features such as floating
-	point instructions and instruction set extensions are not initialized
-	yet. The GDT should be loaded here. Paging should be enabled here.
-	C++ features such as global constructors and exceptions will require
-	runtime support to work as well.
-	*/
+	/* Load GDT */
+	lgdt gdt_descriptor
 
-	/* Entering the high-level kernel. The ABI requires the stack to be 160byte aligned. */
+	/* Reload CS */
+	ljmp $0x08, $protected_mode
+protected_mode:
+	/* initializing segment register */
+	mov $0x10, %ax
+	
+
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %fs
+	mov %ax, %gs
+	mov %ax, %ss
+
+	/* Stack is already set */
+	/* Entering the high-level kernel. The ABI requires the stack to be 16 byte aligned. */
 	call kernel_main
 
 	/* Infinite loop */
