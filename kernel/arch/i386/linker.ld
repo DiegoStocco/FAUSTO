@@ -2,8 +2,8 @@ ENTRY(_start)
 
 SECTIONS
 {
-	/* 2M Offset */
-	. = 2M;
+	/* 64kb Offset */
+	. = 0x10000;
 
 	/* Multiboot header */
 	.text ALIGN(4K) :
