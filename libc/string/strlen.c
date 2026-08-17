@@ -9,12 +9,8 @@ size_t strlen(const char* str) {
 }
 
 char* strcpy(char* dst, const char* src) {
-	int dst_len = strlen(dst);
-	int src_len = strlen(src);
-
-	for (int i = 0; i <= src_len; i++) {
-		dst[i] = src[i];	
-	}
+	size_t i = 0;
+	do { dst[i] = src[i]; } while(src[i++]);
 	return dst;
 }
 
