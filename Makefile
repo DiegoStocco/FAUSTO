@@ -19,6 +19,9 @@ help:
 		"-bootloader\n"\
 		"-kernel"
 
+qemu-run:
+	qemu-system-i386 -drive format=raw,file=$(IMG)
+
 bootloader:
 	$(MAKE) -C bootloader/
 
