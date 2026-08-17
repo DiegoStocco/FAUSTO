@@ -62,6 +62,7 @@ _start:
 	movl $page_directory, %eax
 	movl %eax, %cr3
 
+	# Enabling paging
 	movl %cr0, %eax
 	orl $0x80000000, %eax
 	movl %eax, %cr0
