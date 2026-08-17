@@ -36,13 +36,34 @@ char* get_prefix_from_loglvl(int log_lvl) {
 	}
 }
 
+uint8_t get_color_from_loglvl(int log_lvl) {
+	switch (log_lvl) {
+		case LOG_CRITICAL:
+			return VGA_COLOR_MAGENTA;
+		case LOG_ERROR:
+			return VGA_COLOR_RED;
+		case LOG_WARN:
+			return VGA_COLOR_LIGHT_RED;
+		case LOG_INFO:
+			return VGA_COLOR_LIGHT_GREEN;
+		case LOG_DEBUG:
+			return VGA_COLOR_LIGHT_MAGENTA;
+		case LOG_TRACE:
+			return VGA_COLOR_LIGHT_CYAN;
+		default:
+			return VGA_COLOR_WHITE;
+	}
+}
+
 void log_msg(int log_lvl, const char* unit, const char* msg) {
 	char* pref = get_prefix_from_loglvl(log_lvl);
 	if (pref[0] == '\0') {
 		kernel_panic("Logging unit fail");
 	}
 	terminal_putchar('[');
+	terminal_setcolor(get_color_from_loglvl(log_lvl));
 	terminal_writestring(pref);
+	terminal_setcolor(VGA_COLOR_WHITE);
 	terminal_writestring("]{");
 	terminal_writestring(unit);
 	terminal_writestring("}:");
