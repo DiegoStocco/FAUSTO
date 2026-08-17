@@ -12,7 +12,12 @@ all: help
 sub: bootloader kernel
 
 help:
-	echo -e "Targets available: \n-iso\n-clean\n-sub(bootloader + kernel)\n-bootloader\n-kernel"
+	@echo -e "Targets available: \n"\
+		"-iso\n"\
+		"-clean\n"\
+		"-sub(bootloader + kernel)\n"\
+		"-bootloader\n"\
+		"-kernel"
 
 bootloader:
 	$(MAKE) -C bootloader/
@@ -28,3 +33,5 @@ iso: $(KERNEL) $(BOOTLOADER_BIN)
 	dd if=$(KERNEL_BIN) of=$(IMG) conv=notrunc bs=512 seek=1
 clean:
 	rm -rf $(ISO_DIR)
+	make -C bootloader/ clean
+	make -C kernel/ clean
