@@ -5,18 +5,19 @@ KERNEL_BIN = $(ISO_DIR)/kernel.bin
 BOOTLOADER_BIN = bootloader/build/fausto_bootloader.bin
 IMG = $(ISO_DIR)/system.img
 
-.PHONY: iso clean help sub bootloader kernel
+.PHONY: iso clean help sub bootloader libc kernel
 
 all: help
 
-sub: bootloader kernel
+sub: bootloader libc kernel
 
 help:
 	@echo -e "Targets available: \n"\
 		"-iso\n"\
 		"-clean\n"\
-		"-sub(bootloader + kernel)\n"\
+		"-sub(bootloader + libc + kernel)\n"\
 		"-bootloader\n"\
+		"-libc\n"\
 		"-kernel"
 
 qemu-run:
@@ -28,6 +29,9 @@ bootloader:
 kernel:
 	$(MAKE) -C kernel/
 
+libc:
+	$(MAKE) -C libc/
+
 iso: $(KERNEL) $(BOOTLOADER_BIN)
 	mkdir -p $(ISO_DIR)
 	$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
@@ -37,4 +41,5 @@ iso: $(KERNEL) $(BOOTLOADER_BIN)
 clean:
 	rm -rf $(ISO_DIR)
 	make -C bootloader/ clean
+	make -C libc/ clean
 	make -C kernel/ clean

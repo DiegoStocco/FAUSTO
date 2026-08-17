@@ -17,7 +17,7 @@ void kernel_main(void) {
 	initialize_tty();
 
 	// placeholder message //
-	log_msg(LOG_INFO,"FAUSTO kernel running\nVersion 1.0.0");
+	// log_msg(LOG_INFO,"FAUSTO kernel running\nVersion 1.0.0");
 
 	kernel_panic("Test");
 }
