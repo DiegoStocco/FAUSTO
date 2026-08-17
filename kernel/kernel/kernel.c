@@ -1,7 +1,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <kernel/tty.h>
+#include <kernel/log.h>
+#include <kernel/memory.h>
 
 // Checking for wrong OS target for the compiler // 
 #if defined(__linux__)
@@ -12,25 +13,11 @@
 #error "This kernel must be compiled with an i386-elf compiler"
 #endif
 
-__attribute__((noreturn))
-void kernel_panic(const char *msg)
-{
-	terminal_writestring("\n\nKERNEL PANIC: ");
-	terminal_writestring(msg);
-	terminal_putchar('\n');
-
-	asm volatile ("cli");
-
-	for (;;) {
-		asm volatile ("hlt");
-	}
-}
-
 void kernel_main(void) {
-	terminal_initialize();
+	initialize_tty();
 
 	// placeholder message //
-	terminal_writestring("FAUSTO kernel running\nVersion 1.0.0");
+	log_msg(LOG_INFO,"FAUSTO kernel running\nVersion 1.0.0");
 
 	kernel_panic("Test");
 }
