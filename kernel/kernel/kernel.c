@@ -15,10 +15,7 @@
 
 void kernel_main(void) {
 	initialize_tty();
-
-	// placeholder message //
 	log_msg(LOG_INFO,"kernel","FAUSTO kernel running Version 1.0.0");
-	broadcast_status(BROADCAST_OK, "test");
-	broadcast_status(BROADCAST_FAIL, "test");
-	kernel_panic("Test");
+	memory_checksum();
+	log_msg(LOG_INFO, "system", "done.");
 }

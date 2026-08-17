@@ -16,9 +16,6 @@ void kernel_panic(const char *msg)
 	}
 }
 
-void initialize_tty(void) {
-	terminal_initialize();
-}
 
 char* get_prefix_from_loglvl(int log_lvl) {
 	switch (log_lvl) {
@@ -74,7 +71,12 @@ void broadcast_status(int broadcast_status_code, char* unit){
 	terminal_setcolor(get_color_from_broadcast_status(broadcast_status_code));
 	terminal_writestring(get_broadcast_prefix(broadcast_status_code));
 	terminal_setcolor(VGA_COLOR_WHITE);
-	terminal_putchar(']');
+	terminal_writestring("]:");
 	terminal_writestring(unit);
 	terminal_putchar('\n');
+}
+
+void initialize_tty(void) {
+	terminal_initialize();
+	broadcast_status(BROADCAST_OK, "Terminal output");
 }

@@ -18,7 +18,12 @@ int paging_enabled(void) {
 
 void memory_checksum(void) {
 	if(!paging_enabled()) {
+		log_msg(LOG_CRITICAL, "Memory", "Paging is not enabled on the system");
+		broadcast_status(BROADCAST_FAIL, "Paging");
 		kernel_panic("Paging failed to start");			
 	}
+
+	// END
+	broadcast_status(BROADCAST_OK, "Paging");
 }
 
