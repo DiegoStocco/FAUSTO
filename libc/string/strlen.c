@@ -13,8 +13,9 @@ char* strcpy(char* dst, const char* src) {
 	int src_len = strlen(src);
 
 	for (int i = 0; i < src_len; i++) {
-		dst[dst_len+i] = src[i];	
+		dst[i] = src[i];	
 	}
+	dst[src_len] = '\0';
 	return dst;
 }
 
@@ -28,4 +29,5 @@ int strcmp(const char* s1, const char* s2) {
 	}
 	return 0;
 }
+
 
