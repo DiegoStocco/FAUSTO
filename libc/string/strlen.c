@@ -12,10 +12,9 @@ char* strcpy(char* dst, const char* src) {
 	int dst_len = strlen(dst);
 	int src_len = strlen(src);
 
-	for (int i = 0; i < src_len; i++) {
+	for (int i = 0; i <= src_len; i++) {
 		dst[i] = src[i];	
 	}
-	dst[src_len] = '\0';
 	return dst;
 }
 
