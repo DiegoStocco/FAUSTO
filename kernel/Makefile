@@ -22,7 +22,7 @@ TARGET = $(ARCHDIR)/build/fausto
 .PHONY: clean
 
 $(TARGET): $(arch_objs) $(asm_objs) $(kernel_objs) $(linker)
-	$(CC) -T $(linker) -o $@ $(CCLINKFLAGS) $(arch_objs) $(asm_objs) $(kernel_objs) $(LFLAGS) 
+	$(CC) -T $(linker) -o $@ $(CCLINKFLAGS) $(asm_objs) $(kernel_objs) $(arch_objs) $(LFLAGS) 
 
 $(arch_objs): $(arch_srcs)
 	$(CC) -c $< -o $@ $(CCFLAGS)
