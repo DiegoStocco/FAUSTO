@@ -16,7 +16,14 @@ int paging_enabled(void) {
 	}
 }
 
+void enable_paging(void) {
+	unsigned int cr0 = read_cr0();
+	cr0 |= 0x0000000; // CR0.PG
+	asm volatile ("mov %0, %%cr0" :: "r"(cr0));
+}
+
 void memory_checksum(void) {
+	if (!paging_enabled()) enable_paging();
 	if(!paging_enabled()) {
 		log_msg(LOG_CRITICAL, "Memory", "Paging is not enabled on the system");
 		broadcast_status(BROADCAST_FAIL, "Paging");
