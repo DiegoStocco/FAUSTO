@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-static inline unsigned int read_cr0(void);
+unsigned int read_cr0(void);
 int paging_enabled(void);
 void memory_checksum(void);
 
