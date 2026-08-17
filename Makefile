@@ -1,6 +1,6 @@
 OBJCOPY = i386-elf-objcopy
 ISO_DIR = isodir
-KERNEL = kernel/arch/i386/build/fausto
+KERNEL = kernel/fausto
 KERNEL_BIN = $(ISO_DIR)/kernel.bin 
 BOOTLOADER_BIN = bootloader/build/fausto_bootloader.bin
 IMG = $(ISO_DIR)/system.img

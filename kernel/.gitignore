@@ -1,1 +1,2 @@
-arch/i386/build
+*.o
+fausto
