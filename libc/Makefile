@@ -3,7 +3,7 @@ ARCHDIR = arch/$(ARCH)
 CC = $(ARCH)-elf-gcc
 CCFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Iinclude
 CCFLAGS_LIBC = $(CCFLAGS) -D__is_libc
-CCFLAGS_LIBK = $(CCFLAGS) -D__is_libk
+CCFLAGS_LIBK = $(CCFLAGS) -D__is_libk -I../kernel/include
 AR = $(ARCH)-elf-ar
 
 srcs = $(wildcard */*.c)
