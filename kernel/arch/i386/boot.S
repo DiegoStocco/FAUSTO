@@ -33,6 +33,7 @@ page_table:
 .global _start
 .type _start, @function
 _start:
+
 	/* 32-bit protected mode, no interrupts or paging active */
 	cli
 	/* setting up stack pointer */
