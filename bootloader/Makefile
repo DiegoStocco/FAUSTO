@@ -22,8 +22,6 @@ $(TARGET): $(TARGET_ELF)
 	$(OBJCOPY) -O binary $< $@
 
 clean:
-	rm -r $(OBJS)
-	rm -r $(TARGET)
-	rm -r $(TARGET_ELF)
-
-
+	rm -f $(OBJS)
+	rm -f $(TARGET)
+	rm -f $(TARGET_ELF)
