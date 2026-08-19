@@ -6,13 +6,13 @@ The goal of this kernel is begin able to run on older machines with Intel 80386 
 
 ## Features
 
-# Boot
+### Boot
 The kernel currently offers full multiboot1 capabilites and comes packaged with a lightweight bootloader written in assembly. 
-# Memory
+### Memory
 The kernel supports paging and dynamic memory allocation via _kmalloc_ and _kfree_ functions built in the memory section of the kernel. **The size of the heap is not dynamic**, therefore you might have to change it manually to unleash the full potential of your target machine.
-# Libc
+### Libc
 The kernel offers a small cluster of libc implemented functions that will be expanded in the future
-# Logging
+### Logging
 The kernel also offers logging for system-level fuctions and sections of itself and checksums for all of them. This results in easy debugging.
 
 ## Why FAUSTO kernel?
