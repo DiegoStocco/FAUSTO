@@ -13,10 +13,14 @@
 #error "This kernel must be compiled with an i386-elf compiler"
 #endif
 
-void kernel_main(void) {
+extern uint32_t _kernel_end; // Declared in linker script
+
+void kernel_main(unsigned int magic, void* mb_info) {
 	initialize_tty();
 	log_msg(LOG_INFO,"kernel","FAUSTO kernel running Version 1.0.0");
-	//init_memory();
+	init_memory();
 	memory_checksum();
+	
+
 	log_msg(LOG_INFO, "system", "done.");
 }
