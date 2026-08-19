@@ -3,7 +3,7 @@ ARCHDIR = arch/$(ARCH)
 LIBS = ../libc/libk.a
 LIBS_INCLUDEDIR = ../libc/include
 CC = $(ARCH)-elf-gcc
-CCFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Iinclude -I$(LIBS_INCLUDEDIR)
+CCFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -m32 -fno-pie -Iinclude -I$(LIBS_INCLUDEDIR)
 CCLINKFLAGS = -ffreestanding -O2 -nostdlib
 LFLAGS = -lgcc
 AS = $(ARCH)-elf-as

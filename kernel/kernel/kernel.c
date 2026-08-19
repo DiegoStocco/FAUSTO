@@ -16,6 +16,7 @@
 void kernel_main(void) {
 	initialize_tty();
 	log_msg(LOG_INFO,"kernel","FAUSTO kernel running Version 1.0.0");
+	//init_memory();
 	memory_checksum();
 	log_msg(LOG_INFO, "system", "done.");
 }
