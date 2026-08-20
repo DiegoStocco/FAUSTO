@@ -35,10 +35,11 @@ _start:
 	movw $0x1000, %ax
 	movw %ax, %es
 	xorw %bx, %bx	 # ES:BX = 0x1000:0000
-
+	
+	
 	mov boot_drive, %dl # Disk number
 	mov $0x02, %ah	 # BIOS read sector func
-	mov $17, %al	 # Number of sector to read
+	mov $25, %al	 # Number of sector to read
 	mov $0, %ch	 # Cylinder 0
 	mov $2, %cl	 # Sector 2
 	mov $0, %dh	 # Reading Head 0
@@ -68,8 +69,7 @@ disk_error:
 
 	cli
 	hlt
-boot_drive:
-	.byte 0
+
 dap:
 	.byte 16
 	.byte 0
@@ -123,7 +123,8 @@ putchar_realmode:
     	mov $0x07, %bl
     	int $0x10
 	ret
-
+boot_drive:
+	.byte 0
 # -- CODE32 PROTECTED MODE -- #
 
 .code32
@@ -146,6 +147,7 @@ protected_mode:
 
 	# jump to kernel addres
 	jmp 0x10000
+
 # Pad until 510 bytes and add MBR signature
 .fill 510 - (. - _start), 1, 0
 .word 0xAA55

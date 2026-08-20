@@ -35,9 +35,11 @@ libc:
 iso: $(KERNEL) $(BOOTLOADER_BIN)
 	mkdir -p $(ISO_DIR)
 	$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
-	dd if=/dev/zero of=$(IMG) bs=512 count=2880
-	dd if=$(BOOTLOADER_BIN) of=$(IMG) conv=notrunc bs=512 count=1 seek=0
-	dd if=$(KERNEL_BIN) of=$(IMG) conv=notrunc bs=512 seek=1
+	#dd if=/dev/zero of=$(IMG) bs=512 count=2880
+	dd if=/dev/zero of=$(IMG) bs=1M count=10
+	#dd if=$(BOOTLOADER_BIN) of=$(IMG) conv=notrunc bs=512 count=1 seek=0
+	#dd if=$(KERNEL_BIN) of=$(IMG) conv=notrunc bs=512 seek=25
+	cat $(BOOTLOADER_BIN) $(KERNEL_BIN) > $(IMG)
 clean:
 	rm -rf $(ISO_DIR)
 	make -C bootloader/ clean
