@@ -22,7 +22,8 @@ void init_idt(void) {
 	}
 
 	// Implementation example for a specific interrupt (ex. IRS 0 for division by 0)
-	// idt_set_gate(0, (uint32_t)isr0_wrapper, 0x08, 0x8E);
+	// Register division by 0
+	idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
 	
 	idt_load();
 }

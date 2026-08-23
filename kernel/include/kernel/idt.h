@@ -18,4 +18,5 @@ struct idt_ptr {
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags);
 void init_idt(void);
 extern void idt_load(void);
+extern void isr0(void);
 #endif
