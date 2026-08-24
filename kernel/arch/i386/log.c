@@ -61,9 +61,9 @@ void log_msg(int log_lvl, const char* unit, const char* msg) {
 		kernel_panic("Logging unit fail");
 	}
 	terminal_putchar('[');
-	terminal_setcolor(get_color_from_loglvl(log_lvl));
+	terminal_setcolor(get_color_from_loglvl(log_lvl), VGA_COLOR_BLACK);
 	terminal_writestring(pref);
-	terminal_setcolor(VGA_COLOR_WHITE);
+	terminal_setcolor(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
 	terminal_writestring("]{");
 	terminal_writestring(unit);
 	terminal_writestring("}:");
@@ -89,9 +89,9 @@ uint8_t get_color_from_broadcast_status(int status_code) {
 
 void broadcast_status(int broadcast_status_code, char* unit){ 
 	terminal_putchar('[');
-	terminal_setcolor(get_color_from_broadcast_status(broadcast_status_code));
+	terminal_setcolor(get_color_from_broadcast_status(broadcast_status_code), VGA_COLOR_BLACK);
 	terminal_writestring(get_broadcast_prefix(broadcast_status_code));
-	terminal_setcolor(VGA_COLOR_WHITE);
+	terminal_setcolor(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
 	terminal_writestring("]:");
 	terminal_writestring(unit);
 	terminal_putchar('\n');
@@ -100,4 +100,14 @@ void broadcast_status(int broadcast_status_code, char* unit){
 void initialize_tty(void) {
 	terminal_initialize();
 	broadcast_status(BROADCAST_OK, "Terminal output");
+}
+
+void testcolor_tty() {
+	for (uint8_t i = 0; i < 16; i++) {
+		terminal_setcolor(15, i);
+		terminal_putchar(' ');
+	}
+	// Reset to default
+	terminal_setcolor(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+	terminal_putchar('\n');
 }

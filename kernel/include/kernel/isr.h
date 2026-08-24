@@ -11,5 +11,4 @@ typedef struct {
 }__attribute__((packed)) registers_t;
 
 void fault_handler(registers_t* regs);
-void init_idt(void);
 #endif

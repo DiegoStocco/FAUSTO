@@ -26,8 +26,8 @@ void terminal_initialize(void) {
 	}
 }
 
-void terminal_setcolor(uint8_t color) {
-	terminal_color = color;
+void terminal_setcolor(uint8_t fg, uint8_t bg) {
+	terminal_color = vga_entry_color(fg, bg);
 }
 
 void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
@@ -57,3 +57,4 @@ void terminal_write(const char* data, size_t size) {
 void terminal_writestring(const char* data) {
 	terminal_write(data, strlen(data));
 }
+

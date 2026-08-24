@@ -1,4 +1,5 @@
 #include <kernel/idt.h>
+#include <kernel/log.h>
 
 struct idt_entry idt[256];
 struct idt_ptr idtp;
@@ -24,6 +25,8 @@ void init_idt(void) {
 	// Implementation example for a specific interrupt (ex. IRS 0 for division by 0)
 	// Register division by 0
 	idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
-	
+		
+	// EXTERNAL asm
 	idt_load();
+	broadcast_status(BROADCAST_OK, "IDT Setup");
 }
