@@ -85,7 +85,6 @@ void init_memory(void) {
 	// Alignes at the healp start 4KB
 	heap_start = (heap_start + 0xFFF) & ~0xFFF;
 
-	// Esempio log di debug
 	printf("Kernel End: 0x%x", (uintptr_t)&_kernel_end);
 	printf("Heap Start: 0x%x\n", heap_start);
 

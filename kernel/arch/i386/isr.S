@@ -21,7 +21,9 @@ isr_common_stub:
 	mov %ax, %fs
 	mov %ax, %gs
 
+	push %esp
 	call fault_handler # Calls C handler function
+	add $4, %esp
 
 	pop %eax	# Restores original segments
 	mov %ax, %ds

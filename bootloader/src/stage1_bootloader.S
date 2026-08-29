@@ -39,7 +39,7 @@ _start:
 	
 	mov boot_drive, %dl # Disk number
 	mov $0x02, %ah	 # BIOS read sector func
-	mov $25, %al	 # Number of sector to read
+	mov $27, %al	 # Number of sector to read
 	mov $0, %ch	 # Cylinder 0
 	mov $2, %cl	 # Sector 2
 	mov $0, %dh	 # Reading Head 0
@@ -143,7 +143,6 @@ protected_mode:
 	# Multiboot1 signature (response magic)
 	mov $0x2BADB002, %eax
 	
-	sti
 
 	# jump to kernel addres
 	jmp 0x10000

@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <kernel/isr.h>
+#include <kernel/log.h>
 
 // Error messages for the first 32 CPU exceptions
 const char* exception_messages[] = {
@@ -18,7 +19,11 @@ const char* exception_messages[] = {
 void fault_handler(registers_t *regs) {
 	if (regs->int_no < 32) {
 		// CPU exceptions handling (0 - 31)
-		
+		switch (regs->int_no) {
+			case 0:
+				log_msg(LOG_ERROR, "Interrupt Handler", exception_messages[0]);
+
+		}
 
 		while (1) {
 			__asm__ volatile ("cli; hlt");

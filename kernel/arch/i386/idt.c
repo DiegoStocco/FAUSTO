@@ -28,5 +28,7 @@ void init_idt(void) {
 		
 	// EXTERNAL asm
 	idt_load();
+	__asm__ inline ("sti");
+	log_msg(LOG_INFO, "IDT", "Interrupts enabled");
 	broadcast_status(BROADCAST_OK, "IDT Setup");
 }
