@@ -16,10 +16,10 @@ all: $(TARGET)
 	$(AS) --32 -o $@ $<
 
 $(TARGET_ELF): $(OBJS) $(linker)
-	$(LD) -m elf_i386 -T $(linker) -o $@ $<
+	$(LD) -m elf_i386 -T $(linker) -o $@ $(OBJS)
 
 $(TARGET): $(TARGET_ELF)
-	$(OBJCOPY) -O binary $< $@
+	$(OBJCOPY) -O binary $(TARGET_ELF) $@
 
 clean:
 	rm -f $(OBJS)
