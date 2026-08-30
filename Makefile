@@ -29,15 +29,15 @@ qemu-run:
 bootloader:
 	$(MAKE) -C bootloader/
 
-kernel:
+kernel: | libc
 	$(MAKE) -C kernel/
 
 libc:
 	$(MAKE) -C libc/
 
-run: sub iso qemu-run
+run: iso qemu-run
 
-iso: $(KERNEL) $(BOOTLOADER_BIN)
+iso: | sub
 	mkdir -p $(ISO_DIR)
 	$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
 	dd if=/dev/zero of=$(IMG) bs=512 count=2880
@@ -47,6 +47,6 @@ iso: $(KERNEL) $(BOOTLOADER_BIN)
 	cat $(BOOTLOADER_BIN) $(KERNEL_BIN) > $(IMG)
 clean:
 	rm -rf $(ISO_DIR)
-	make -C bootloader/ clean
-	make -C libc/ clean
-	make -C kernel/ clean
+	$(MAKE) -C bootloader/ clean
+	$(MAKE) -C libc/ clean
+	$(MAKE) -C kernel/ clean
