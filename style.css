@@ -1,0 +1,49 @@
+body{
+    text-align: left;
+    font-family: monospace;
+    font-size: 14pt;
+    background-color:rgb(228, 255, 194);
+    color:black;
+
+    animation-duration: 300ms;
+    transition-duration: 300ms;
+}
+
+h1 {
+    font-size:3vh;
+    margin-right:40px;
+}
+
+h1, li {
+    margin-left:10%;
+    padding-left:0px;
+}
+
+ul {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+li {
+    list-style: none;
+    font-size:2vh;
+}
+
+.titleCont{
+    display:flex;
+    align-items: center;
+}
+
+button {
+    background-color:rgb(70, 245, 6);
+    width:auto;
+    height:auto;
+    font-size:2vh;
+    border-width:9px;
+    border-style:groove;
+    border-color: gray;
+    font-family: monospace;
+    font-weight: 600;
+    padding:10px;
+    margin-right:30px;
+}
