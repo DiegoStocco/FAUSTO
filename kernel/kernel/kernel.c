@@ -26,8 +26,8 @@ void kernel_main(unsigned int magic, void* mb_info) {
 	// - IDT - //
 	init_idt();
 	
-	// TODO: Fix interrups to make them not boot loop
-	//__asm__ volatile ("int $0");
+	// Division by zero interrupt test
+	__asm__ volatile ("int $0");
 
 	log_msg(LOG_INFO, "system", "done.");
 }
