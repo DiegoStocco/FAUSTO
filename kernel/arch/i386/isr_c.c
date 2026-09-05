@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <kernel/isr.h>
+#include "isr.h"
 #include <kernel/log.h>
 
 // Error messages for the first 32 CPU exceptions

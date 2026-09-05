@@ -1,3 +1,4 @@
+#include "idt_internal.h"
 #include <kernel/idt.h>
 #include <kernel/log.h>
 
