@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+extern uint32_t isr_table[32];
+
 typedef struct {
 	uint32_t ds;					 // saved data segment 
 	uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax; // Saved by pusha 
@@ -11,4 +13,5 @@ typedef struct {
 }__attribute__((packed)) registers_t;
 
 void fault_handler(registers_t* regs);
+
 #endif

@@ -1,4 +1,5 @@
 #include "idt_internal.h"
+#include "isr.h"
 #include <kernel/idt.h>
 #include <kernel/log.h>
 
@@ -23,9 +24,10 @@ void init_idt(void) {
 		idt_set_gate(i, 0, 0, 0);
 	}
 
-	// Implementation example for a specific interrupt (ex. IRS 0 for division by 0)
-	// Register division by 0
-	idt_set_gate(0, (uint32_t)isr0, 0x08, 0x8E);
+	// Set IDT for CPU faults
+	for(int i = 0; i < 32; i++) {
+		idt_set_gate(i, (uint32_t)isr_table[i], 0x08, 0x8E);
+	}
 		
 	// EXTERNAL asm
 	idt_load();

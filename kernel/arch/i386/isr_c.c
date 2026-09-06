@@ -3,7 +3,7 @@
 #include <kernel/log.h>
 
 // Error messages for the first 32 CPU exceptions
-const char* exception_messages[] = {
+const char* exception_messages[32] = {
 	"Division By Zero",
 	"Debug",
 	"Not Maskerable Interrupt",
@@ -14,17 +14,34 @@ const char* exception_messages[] = {
 	"No Coprocessor",
 	"Double fault",
 	"Coprocessor Segment Overrun",
+	"Invalid TSS",
+	"Segment Not Present",
+	"Stack Segment Fault",
+	"General Protection",
+	"Page Fault",
+	"[Reserved]",
+	"Floating Point Error",
+	"Alignment Check",
+	"Machine Check",
+	"SIMD Floating-Point Exception",
+	"Virtualization Exception",
+	"Control Protection Exception",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
+	"[Reserved]",
 };
 
 void fault_handler(registers_t *regs) {
 	if (regs->int_no < 32) {
 		// CPU exceptions handling (0 - 31)
-		switch (regs->int_no) {
-			case 0:
-				log_msg(LOG_ERROR, "Interrupt Handler", exception_messages[0]);
-
-		}
-
+		log_msg(LOG_ERROR, "Interrupt Handler", exception_messages[regs->int_no]);
 		while (1) {
 			__asm__ volatile ("cli; hlt");
 		}
