@@ -21,7 +21,7 @@ void pic_remap(void) {
 	outb(0x21, 0x01);
 	outb(0xA1, 0x01);
 
-	// Masks all the intterupts for now (1 = disables)
+	// Masks all the intterupts for now (1 = disabled)
 	outb(0x21, 0xFF);
 	outb(0xA1, 0xFF);
 }
