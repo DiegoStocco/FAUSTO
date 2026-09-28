@@ -28,7 +28,8 @@ void init_idt(void) {
 	for(int i = 0; i < 32; i++) {
 		idt_set_gate(i, (uint32_t)isr_table[i], 0x08, 0x8E);
 	}
-		
+	// Set IDT for keyboard handling
+	idt_set_gate(33, (uint32_t)keyboard_irq, 0x08, 0x8E);
 	// EXTERNAL asm
 	idt_load();
 	__asm__ inline ("sti");

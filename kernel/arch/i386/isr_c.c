@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include "isr.h"
+#include "keyboard.h"
+#include "io.h"
 #include <kernel/log.h>
 
 // Error messages for the first 32 CPU exceptions
@@ -46,4 +48,13 @@ void fault_handler(registers_t *regs) {
 			__asm__ volatile ("cli; hlt");
 		}
 	}
+}
+
+void keyboard_handler(void) {
+	uint8_t scancode = inb((uint16_t)0x60);
+
+	// Use scancode
+	handle_scancode(scancode);	
+
+	pic_send_eoi(1);
 }

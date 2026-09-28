@@ -25,9 +25,10 @@ void kernel_main(unsigned int magic, void* mb_info) {
 	memory_checksum();
 	// - IDT - //
 	init_idt();
-	
-	// Division by zero interrupt test
-	__asm__ volatile ("int $0");
 
 	log_msg(LOG_INFO, "system", "done.");
+
+	while(1) {
+		__asm__ __volatile__("nop");
+	}
 }

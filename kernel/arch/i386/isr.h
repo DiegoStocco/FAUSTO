@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 extern uint32_t isr_table[32];
+extern void keyboard_irq();
 
 typedef struct {
 	uint32_t ds;					 // saved data segment 
@@ -13,5 +14,6 @@ typedef struct {
 }__attribute__((packed)) registers_t;
 
 void fault_handler(registers_t* regs);
+void keyboard_handler(void);
 
 #endif
