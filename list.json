@@ -1,18 +1,18 @@
 [
     {
-        "name":"feature1",
+        "name":"Keyboard Driver",
         "state":0
     },
     {
-        "name":"fdg",
-        "state":1
-    },
-    {
-        "name":"dsg",
+        "name":"Debug shell",
         "state":0
     },
     {
-        "name":"dsgsdg",
-        "state":1
+        "name":"Syscall",
+        "state":0
+    },
+    {
+        "name":"Filesystem",
+        "state":0
     }
 ]
