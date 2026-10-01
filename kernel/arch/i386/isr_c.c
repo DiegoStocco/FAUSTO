@@ -51,10 +51,11 @@ void fault_handler(registers_t *regs) {
 }
 
 void keyboard_handler(void) {
-	uint8_t scancode = inb((uint16_t)0x60);
+	uint8_t scancode = inb(0x60);
 
 	// Use scancode
 	handle_scancode(scancode);	
+	log_msg(LOG_DEBUG, "keyboard handler", "Interrupt triggered");
 
 	pic_send_eoi(1);
 }

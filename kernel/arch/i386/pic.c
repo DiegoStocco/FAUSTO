@@ -1,7 +1,15 @@
 #include <stdint.h>
+#include "pic.h"
+#include <kernel/log.h>
 
 static inline void outb(uint16_t port, uint8_t val) {
 	__asm__ volatile ("outb %0, %1" : : "a"(val), "Nd"(port));
+}
+
+static inline uint8_t inb(uint16_t port) {
+	uint8_t ret;
+	__asm__ volatile ("inb %1, %0" : "=a"(ret) : "Nd"(port));
+	return ret;
 }
 
 void pic_remap(void) {
@@ -21,7 +29,27 @@ void pic_remap(void) {
 	outb(0x21, 0x01);
 	outb(0xA1, 0x01);
 
+	log_msg(LOG_INFO, "PIC", "PIC remapped");
+
 	// Masks all the intterupts for now (1 = disabled)
 	outb(0x21, 0xFF);
 	outb(0xA1, 0xFF);
+
+	log_msg(LOG_INFO, "PIC", "All intterrupt masked");
+
+	broadcast_status(BROADCAST_OK, "PIC");
+}
+
+void pic_clear_mask(uint8_t irq) {
+	uint16_t port;
+	if (irq < 8) {
+		port = 0x21;
+	} else {
+		port = 0xA1;
+		irq -= 8;
+	}
+
+	uint8_t value = inb(port) & ~(1 << irq);
+	outb(port, value);
+	log_msg(LOG_DEBUG, "PIC", "Interrupt IRQ? unmasked");
 }

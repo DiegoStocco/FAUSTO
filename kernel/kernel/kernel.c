@@ -27,8 +27,8 @@ void kernel_main(unsigned int magic, void* mb_info) {
 	init_idt();
 
 	log_msg(LOG_INFO, "system", "done.");
-
+	
 	while(1) {
-		__asm__ __volatile__("nop");
+		// ...
 	}
 }

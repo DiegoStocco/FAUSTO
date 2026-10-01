@@ -1,7 +1,10 @@
 #include "idt_internal.h"
 #include "isr.h"
+#include "pic.h"
 #include <kernel/idt.h>
 #include <kernel/log.h>
+
+extern void keyboard_irq(void);
 
 struct idt_entry idt[256];
 struct idt_ptr idtp;
@@ -19,6 +22,9 @@ void init_idt(void) {
 	idtp.limit = (sizeof(struct idt_entry)*256) -1;
 	idtp.base = (uint32_t)&idt;
 
+	pic_remap();
+	pic_clear_mask(1); // IRQ1 = keyboard
+
 	// Reset IDT
 	for (int i = 0; i < 256; i++) {
 		idt_set_gate(i, 0, 0, 0);
@@ -32,7 +38,7 @@ void init_idt(void) {
 	idt_set_gate(33, (uint32_t)keyboard_irq, 0x08, 0x8E);
 	// EXTERNAL asm
 	idt_load();
-	__asm__ inline ("sti");
+	__asm__ __volatile__ ("sti");
 	log_msg(LOG_INFO, "IDT", "Interrupts enabled");
 	broadcast_status(BROADCAST_OK, "IDT Setup");
 }
