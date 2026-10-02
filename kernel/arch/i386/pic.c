@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "pic.h"
+#include <stdio.h>
 #include <kernel/log.h>
 
 static inline void outb(uint16_t port, uint8_t val) {
@@ -51,5 +52,5 @@ void pic_clear_mask(uint8_t irq) {
 
 	uint8_t value = inb(port) & ~(1 << irq);
 	outb(port, value);
-	log_msg(LOG_DEBUG, "PIC", "Interrupt IRQ? unmasked");
+	log_msg(LOG_DEBUG, "PIC", "Interrupt IRQ unmasked");
 }

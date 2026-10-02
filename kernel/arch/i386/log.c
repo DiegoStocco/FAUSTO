@@ -1,5 +1,7 @@
 #include "vga.h"
 #include <kernel/log.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include <kernel/tty.h>
 
 __attribute__((noreturn))
@@ -70,8 +72,6 @@ void log_msg(int log_lvl, const char* unit, const char* msg) {
 	terminal_writestring(msg);
 	terminal_putchar('\n');
 }
-
-
 char* get_broadcast_prefix(int broadcast_status) {
 	if (broadcast_status == BROADCAST_OK) {
 		return "OK";
