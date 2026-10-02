@@ -55,7 +55,6 @@ void keyboard_handler(void) {
 
 	// Use scancode
 	handle_scancode(scancode);	
-	log_msg(LOG_DEBUG, "keyboard handler", "Interrupt triggered");
 
 	pic_send_eoi(1);
 }
