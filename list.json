@@ -1,7 +1,7 @@
 [
     {
         "name":"Keyboard Driver",
-        "state":0
+        "state":1
     },
     {
         "name":"Debug shell",
