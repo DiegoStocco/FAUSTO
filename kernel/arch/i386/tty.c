@@ -37,14 +37,21 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 
 void terminal_putchar(char c) {
 	if (c == '\n') {
-		terminal_row++; // LF
+		if (terminal_row++ == VGA_HEIGHT) { // LF
+			terminal_row = 0;	
+			bzero(terminal_buffer, VGA_WIDTH*VGA_HEIGHT*2);
+		}
 		terminal_column = 0; // CR
+	} else if (c == '\r') {
+		terminal_column = 0;
 	} else { 
 		terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 		if (terminal_column++ == VGA_WIDTH) {
 			terminal_column = 0;
-			if (++terminal_row == VGA_HEIGHT)
+			if (terminal_row++ == VGA_HEIGHT){
 				terminal_row = 0;
+				bzero(terminal_buffer, VGA_WIDTH*VGA_HEIGHT*2);
+			}
 		}
 	}
 }

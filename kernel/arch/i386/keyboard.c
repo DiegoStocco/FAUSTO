@@ -13,7 +13,7 @@ const char ps2_set1_normal[256] = {
     [0x17] = 'i', [0x24] = 'j', [0x25] = 'k', [0x26] = 'l',
     [0x32] = 'm', [0x31] = 'n', [0x18] = 'o', [0x19] = 'p',
     [0x10] = 'q', [0x13] = 'r', [0x1F] = 's', [0x14] = 't',
-    [0x15] = 'u', [0x2F] = 'v', [0x11] = 'w', [0x2D] = 'x',
+    [0x16] = 'u', [0x2F] = 'v', [0x11] = 'w', [0x2D] = 'x',
     [0x15] = 'y', [0x2C] = 'z',
 
     [0x29] = '`', [0x0C] = '-', [0x0D] = '=', [0x1A] = '[',
@@ -37,7 +37,7 @@ const char ps2_set1_shifted[256] = {
     [0x17] = 'I', [0x24] = 'J', [0x25] = 'K', [0x26] = 'L',
     [0x32] = 'M', [0x31] = 'N', [0x18] = 'O', [0x19] = 'P',
     [0x10] = 'Q', [0x13] = 'R', [0x1F] = 'S', [0x14] = 'T',
-    [0x15] = 'U', [0x2F] = 'V', [0x11] = 'W', [0x2D] = 'X',
+    [0x16] = 'U', [0x2F] = 'V', [0x11] = 'W', [0x2D] = 'X',
     [0x15] = 'Y', [0x2C] = 'Z',
 
     [0x29] = '~', [0x0C] = '_', [0x0D] = '+', [0x1A] = '{',
@@ -70,5 +70,5 @@ void handle_scancode(uint8_t scancode) {
 	
 	if (is_break) return;
 
-	printf("%c", translate_scancode(scancode));
+	printf("%c",translate_scancode(scancode));
 }

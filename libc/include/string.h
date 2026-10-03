@@ -9,4 +9,5 @@ char* strcat(char* dst, const char* src);
 int strcmp(const char* s1, const char* s2);
 char* strchr(const char* s, int c);
 void* memcpy(void* dest, const void* src, size_t n);
+void bzero(void* a, size_t n);
 #endif
