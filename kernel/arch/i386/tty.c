@@ -44,6 +44,11 @@ void terminal_putchar(char c) {
 		terminal_column = 0; // CR
 	} else if (c == '\r') {
 		terminal_column = 0;
+	} else if (c == '\b') {
+		
+		terminal_buffer[(VGA_WIDTH*terminal_row-1)+terminal_column--] = 0;
+	} else if (c == '\t') {
+		terminal_column += 4;
 	} else { 
 		terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 		if (terminal_column++ == VGA_WIDTH) {

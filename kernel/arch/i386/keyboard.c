@@ -2,6 +2,7 @@
 #include "keyboard.h"
 #include <kernel/log.h>
 #include <stdio.h>
+#include <kernel/tty.h>
 
 const char ps2_set1_normal[256] = {
     [0x0B] = '0', [0x02] = '1', [0x03] = '2', [0x04] = '3',
@@ -69,6 +70,5 @@ void handle_scancode(uint8_t scancode) {
 	}
 	
 	if (is_break) return;
-
-	printf("%c",translate_scancode(scancode));
+	terminal_putchar(translate_scancode(scancode));
 }
