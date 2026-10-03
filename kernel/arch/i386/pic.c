@@ -54,3 +54,16 @@ void pic_clear_mask(uint8_t irq) {
 	outb(port, value);
 	log_msg(LOG_DEBUG, "PIC", "Interrupt IRQ unmasked");
 }
+
+void pic_set_mask(uint8_t irq) {
+	uint16_t port;
+	if (irq < 8) {
+		port = 0x21;
+	} else {
+		port = 0xA1;
+		irq -= 8;
+	}
+	uint8_t value = inb(port) | (1 << irq);
+	outb(port, value);
+	log_msg(LOG_DEBUG, "PIC", "Interrupt IRQ masked");
+}
