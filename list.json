@@ -4,6 +4,10 @@
         "state":1
     },
     {
+        "name":"Keyboard buffer and getchar",
+        "state":0
+    },
+    {
         "name":"Debug shell",
         "state":0
     },
