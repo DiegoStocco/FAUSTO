@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <kernel/tty.h>
 
+
 const char ps2_set1_normal[256] = {
     [0x0B] = '0', [0x02] = '1', [0x03] = '2', [0x04] = '3',
     [0x05] = '4', [0x06] = '5', [0x07] = '6', [0x08] = '7',
@@ -52,6 +53,34 @@ const char ps2_set1_shifted[256] = {
     [0x01] = 0x1B,  // Escape
 };
 
+#define KEYBOARD_BUFFER_SIZE 256
+
+typedef struct {
+	char data[KEYBOARD_BUFFER_SIZE];
+	unsigned int head;
+	unsigned int tail;
+} keyboard_buffer_t;
+
+static keyboard_buffer_t kb_buffer = { .head = 0, .tail = 0 };
+
+void kb_buffer_push(char c) {
+	unsigned int next = (kb_buffer.head + 1) % KEYBOARD_BUFFER_SIZE;
+
+	if (next != kb_buffer.tail) {
+		kb_buffer.data[kb_buffer.head] = c;
+		kb_buffer.head = next;
+	}
+}
+
+char kb_buffer_pop(void){
+	if (kb_buffer.head == kb_buffer.tail) {
+		return 0;
+	}
+	char c = kb_buffer.data[kb_buffer.tail];
+	kb_buffer.tail = (kb_buffer.tail + 1) % KEYBOARD_BUFFER_SIZE;
+	return c;
+}
+
 int shift_pressed = 0;
 
 char translate_scancode(uint8_t scancode) {
@@ -70,5 +99,14 @@ void handle_scancode(uint8_t scancode) {
 	}
 	
 	if (is_break) return;
-	terminal_putchar(translate_scancode(scancode));
+	char c = translate_scancode(clean_scancode);
+	kb_buffer_push(c);
+}
+
+char getchar(void) {
+    char c = 0;
+    while ((c = kb_buffer_pop()) == 0) {
+        asm volatile("hlt");
+    }
+    return c;
 }
