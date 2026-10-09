@@ -5,7 +5,7 @@
     },
     {
         "name":"Keyboard buffer and getchar",
-        "state":0
+        "state":1
     },
     {
         "name":"Debug shell",
