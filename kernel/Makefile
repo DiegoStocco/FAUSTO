@@ -5,6 +5,7 @@ LIBS_INCLUDEDIR = ../libc/include
 CC = $(ARCH)-elf-gcc
 CCFLAGS = -g -std=gnu99 -ffreestanding -O1 -Wall -Wextra -m32 -fno-pie -Iinclude -I$(LIBS_INCLUDEDIR)
 CCLINKFLAGS = -ffreestanding -O2 -nostdlib
+DFLAGS = -DLOG_ALL
 LFLAGS = -lgcc
 AS = $(ARCH)-elf-as
 
@@ -27,7 +28,7 @@ $(TARGET): $(arch_objs) $(asm_objs) $(kernel_objs) $(linker) $(LIBS)
 	$(CC) -T $(linker) -o $@ $(CCLINKFLAGS) $(asm_objs) $(kernel_objs) $(arch_objs) $(LIBS) $(LFLAGS) 
 
 %.c.o: %.c
-	$(CC) -c $< -o $@ $(CCFLAGS)
+	$(CC) -c $< -o $@ $(CCFLAGS) $(DFLAGS) 
 
 %.S.o: %.S
 	mkdir -p $(ARCHDIR)/build/
