@@ -9,13 +9,17 @@ static int print_uint(uint64_t n, int base, bool capitalize) {
     char first_letter;
     int digit;
     uint64_t x = 1;
+    int digit_count = 1;
 
     if(capitalize) first_letter = 'A';
     else first_letter = 'a';
 
-    while(x*base <= n) x *= base;
+    while(x*base <= n) {
+        x *= base;
+        digit_count++;
+    }
 
-    do {
+    for(int i = 0; i < digit_count; ++i) {
         digit = n / x;
         n -= digit * x;
         x /= base;
@@ -25,18 +29,7 @@ static int print_uint(uint64_t n, int base, bool capitalize) {
         else
             putchar(digit - 10 + first_letter);
         cnt++;
-    } while(n);
-
-    // do {
-    //     digit = n % base;
-    //     n /= base;
-    //
-    //     if(0 <= digit && digit <= 9)
-    //         putchar(digit + '0');
-    //     else
-    //         putchar(digit - 10 + first_letter);
-    //     cnt++;
-    // } while(n);
+    }
     return cnt;
 }
 
