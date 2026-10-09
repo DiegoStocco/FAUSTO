@@ -13,7 +13,7 @@ static int print_uint(uint64_t n, int base, bool capitalize) {
     if(capitalize) first_letter = 'A';
     else first_letter = 'a';
 
-    while(x*base < n) x *= base;
+    while(x*base <= n) x *= base;
 
     do {
         digit = n / x;
