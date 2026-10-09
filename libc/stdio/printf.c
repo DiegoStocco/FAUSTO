@@ -45,12 +45,9 @@ static int print_int(int64_t n, int base, bool capitalize) {
 }
 
 // minimal printf implementation. Does not support any modifier or floating point numbers
-int printf(const char * restrict fmt, ...) {
+int vprintf(const char * restrict fmt, va_list args) {
     int count = 0;
-    va_list args;
     const char *str;
-
-    va_start(args, fmt);
 
     while(*fmt) {
         if(*fmt == '%') {
@@ -107,10 +104,20 @@ int printf(const char * restrict fmt, ...) {
         fmt++;
     }
 
-    va_end(args);
     return count;
 
 fail:
     va_end(args);
     return -1;
+}
+
+int printf(const char *restrict fmt, ...) {
+    va_list args;
+    int cnt;
+
+    va_start(args, fmt);
+    cnt = vprintf(fmt, args);
+    va_end(args);
+
+    return cnt;
 }
