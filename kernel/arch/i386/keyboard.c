@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "keyboard.h"
+#include <kernel/keyboard.h>
 #include <kernel/log.h>
 #include <stdio.h>
 #include <kernel/tty.h>

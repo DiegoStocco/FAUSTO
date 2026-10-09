@@ -87,8 +87,9 @@ void init_memory(void) {
 
 	printf("Kernel End: 0x%x", (uintptr_t)&_kernel_end);
 	printf(" Heap Start: 0x%x\n", heap_start);
-
+	
 	init_heap(heap_start, 0x00100000);
+	printf("Heap size: %u / 0x%x\n", 0x00100000, 0x00100000);  
 }
 
 void memory_checksum(void) {

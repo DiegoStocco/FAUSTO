@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "isr.h"
-#include "keyboard.h"
+#include <kernel/keyboard.h>
 #include "io.h"
 #include <kernel/log.h>
 
