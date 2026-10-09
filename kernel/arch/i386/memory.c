@@ -89,7 +89,7 @@ void init_memory(void) {
 	printf(" Heap Start: 0x%x\n", heap_start);
 	
 	init_heap(heap_start, 0x00100000);
-	printf("Heap size: %u bytes \n", 0x00100000);  
+	printf("Heap size: %ukb\n", 0x00100000/1000);  
 }
 
 void memory_checksum(void) {
