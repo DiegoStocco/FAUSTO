@@ -11,11 +11,11 @@ _start:
 
 	# Create stack
 	xorw %ax, %ax
-    	movw %ax, %ds
-    	movw %ax, %es
-    	movw %ax, %ss
-   	movw $0x7c00, %sp
-	
+	movw %ax, %ds
+	movw %ax, %es
+	movw %ax, %ss
+	movw $0x7c00, %sp
+
 	call get_memory_map
 
 	# Read kernel
