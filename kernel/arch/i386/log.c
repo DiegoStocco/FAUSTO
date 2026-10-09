@@ -72,6 +72,26 @@ void log_msg(int log_lvl, const char* unit, const char* msg) {
 	terminal_writestring(msg);
 	terminal_putchar('\n');
 }
+
+void log_msgf(int log_lvl, const char* unit, const char* restrict fmt, ...) {
+	va_list ap;
+	va_start(ap, fmt);
+
+	char* pref = get_prefix_from_loglvl(log_lvl);
+	if (pref[0] == '\0') {
+		kernel_panic("Logging unit fail");
+	}
+
+	terminal_putchar('[');
+	terminal_setcolor(get_color_from_loglvl(log_lvl), VGA_COLOR_BLACK);
+	terminal_writestring(pref);
+	terminal_setcolor(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+	terminal_writestring("}:");
+	vprintf(fmt, ap);
+	terminal_putchar('\n');
+	
+	va_end(ap);
+}
 char* get_broadcast_prefix(int broadcast_status) {
 	if (broadcast_status == BROADCAST_OK) {
 		return "OK";

@@ -14,6 +14,7 @@
 void kernel_panic(const char* msg);
 void initialize_tty(void);
 void log_msg(int log_lvl, const char* unit, const char* msg);
+void log_msgf(int log_lvl, const char* unit, const char* restrict fmt, ...);
 void broadcast_status(int broadcast_status_code, char* unit);
 char* get_prefix_from_loglvl(int log_lvl);
 void testcolor_tty(); 
