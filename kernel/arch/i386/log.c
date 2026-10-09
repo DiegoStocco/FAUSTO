@@ -22,17 +22,46 @@ void kernel_panic(const char *msg)
 char* get_prefix_from_loglvl(int log_lvl) {
 	switch (log_lvl) {
 		case LOG_CRITICAL:
+		#if defined(FLAG_LOG_CRITICAL) || defined(LOG_ALL)
 			return "CRITICAL";
+		#else
+			return "\0";
+		#endif
+		
 		case LOG_ERROR:
+		#if defined(FLAG_LOG_ERROR) || defined(LOG_ALL)
 			return "ERROR";
+		#else
+			return "\0";
+		#endif
 		case LOG_WARN:
+		#if defined(FLAG_LOG_WARN) || defined(LOG_ALL)
 			return "WARN";
+		#else
+			return "\0";
+		#endif
+
 		case LOG_INFO:
+		#if defined(FLAG_LOG_INFO) || defined(LOG_ALL)
 			return "INFO";
+		#else
+			return "\0";
+		#endif
+
 		case LOG_DEBUG:
+		#if defined(FLAG_LOG_DEBUG) || defined(LOG_ALL)
 			return "DEBUG";
+		#else
+			return "\0";
+		#endif
+
 		case LOG_TRACE:
+		#if defined(FLAG_LOG_TRACE) || defined(LOG_ALL)
 			return "TRACE";
+		#else
+			return "\0";
+		#endif
+
 		default:
 			return "\0";
 	}
@@ -60,7 +89,7 @@ uint8_t get_color_from_loglvl(int log_lvl) {
 void log_msg(int log_lvl, const char* unit, const char* msg) {
 	char* pref = get_prefix_from_loglvl(log_lvl);
 	if (pref[0] == '\0') {
-		kernel_panic("Logging unit fail");
+		return;
 	}
 	terminal_putchar('[');
 	terminal_setcolor(get_color_from_loglvl(log_lvl), VGA_COLOR_BLACK);
@@ -79,7 +108,7 @@ void log_msgf(int log_lvl, const char* unit, const char* restrict fmt, ...) {
 
 	char* pref = get_prefix_from_loglvl(log_lvl);
 	if (pref[0] == '\0') {
-		kernel_panic("Logging unit fail");
+		return;
 	}
 
 	terminal_putchar('[');
