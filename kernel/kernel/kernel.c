@@ -4,6 +4,8 @@
 #include <kernel/log.h>
 #include <kernel/memory.h>
 #include <kernel/idt.h>
+#include <kernel/keyboard.h>
+#include <stdio.h>
 
 // Checking for wrong OS target for the compiler // 
 #if defined(__linux__)
@@ -29,6 +31,8 @@ void kernel_main(unsigned int magic, void* mb_info) {
 	log_msg(LOG_INFO, "system", "done.");
 	
 	while(1) {
-		// ...
+		char c = getchar();
+		char* s = (char*)&c;
+		log_msg(LOG_DEBUG, "kernel",s);
 	}
 }
