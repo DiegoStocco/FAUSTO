@@ -86,6 +86,8 @@ void log_msgf(int log_lvl, const char* unit, const char* restrict fmt, ...) {
 	terminal_setcolor(get_color_from_loglvl(log_lvl), VGA_COLOR_BLACK);
 	terminal_writestring(pref);
 	terminal_setcolor(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+	terminal_writestring("]{");
+	terminal_writestring(unit);
 	terminal_writestring("}:");
 	vprintf(fmt, ap);
 	terminal_putchar('\n');
