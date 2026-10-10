@@ -16,6 +16,10 @@
         "state":0
     },
     {
+	"name":"Binary parser/executer",
+	"state":0
+    },
+    {
         "name":"Filesystem",
         "state":0
     }
