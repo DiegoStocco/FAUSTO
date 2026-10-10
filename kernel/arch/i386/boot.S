@@ -8,6 +8,7 @@
 
 .section .multiboot
 .align 4
+    jmp _start # In case this file gets executed directly
 .long MAGIC
 .long FLAGS
 .long CHECKSUM
