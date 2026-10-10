@@ -1,4 +1,4 @@
-isodir
+imgdir
 *.a
 *.o
 gdb.sh
