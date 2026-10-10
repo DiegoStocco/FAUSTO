@@ -5,7 +5,7 @@
 
 // VGA base options //
 #define VGA_WIDTH	80
-#define VGA_HEIGHT	15
+#define VGA_HEIGHT	25
 #define VGA_MEMORY	0xB8000
 
 size_t terminal_row;
@@ -37,7 +37,8 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 
 void terminal_putchar(char c) {
 	if (c == '\n') {
-		if (terminal_row++ == VGA_HEIGHT) { // LF
+        terminal_row++;
+		if (terminal_row >= VGA_HEIGHT) { // LF
 			terminal_row = 0;	
 			bzero(terminal_buffer, VGA_WIDTH*VGA_HEIGHT*2);
 		}
