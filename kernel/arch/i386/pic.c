@@ -51,7 +51,6 @@ void pic_clear_mask(uint8_t irq) {
 	}
 
 	uint8_t value = inb(port) & ~(1 << irq);
-	int v = (int)value;
 	outb(port, value);
 	log_msgf(LOG_DEBUG, "PIC", "Interrupt IRQ%u unmasked", irq);
 }
