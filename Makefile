@@ -41,6 +41,7 @@ image: | sub
 	$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
 	dd if=/dev/zero of=$(IMG) bs=512 count=2880
 	cat $(BOOTLOADER_BIN) $(KERNEL_BIN) > $(IMG)
+	truncate -s 1474560 $(IMG)
 clean:
 	rm -rf $(IMG_DIR)
 	$(MAKE) -C bootloader/ clean

@@ -45,12 +45,39 @@ setup_read_call:
 read_kernel:
 	mov boot_drive, %dl # Disk number
 	mov $0x02, %ah	 # BIOS read sector func
-	mov $27, %al	 # Number of sector to read
+	mov $17, %al	 # Number of sector to read
 	mov $0, %ch	 # Cylinder 0
 	mov $2, %cl	 # Sector 2
 	mov $0, %dh	 # Reading Head 0
 	int $0x13
 	jc throw_disk_error
+	
+	clc
+
+	mov boot_drive, %dl
+	mov $0x00, %ah
+	int $0x13
+
+	mov %es, %ax
+	add $0x0220, %ax
+	mov %ax, %es
+
+	xorw %bx, %bx
+	
+	mov boot_drive, %dl # Disk number
+	mov $0x02, %ah	 # BIOS read sector func
+	mov $8, %al	 # Number of sector to read
+	mov $0, %ch	 # Cylinder 0
+	mov $1, %cl	 # Sector 2
+	mov $1, %dh	 # Reading Head 0
+	int $0x13
+	jc throw_disk_error
+
+	mov %es, %ax
+	add $0x0100, %ax
+	mov %ax, %es
+	
+
 	ret
 
 # - Function: switch_protected_mode - #
