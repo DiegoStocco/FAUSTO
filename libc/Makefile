@@ -19,13 +19,21 @@ TARGET_LIBK = libk.a
 all: $(TARGET_LIBK)
 
 $(TARGET_LIBK): $(objs_libk)
-	$(AR) rcs $@ $(objs_libk)
+	@echo " AR  $@"
+	@$(AR) rcs $@ $(objs_libk)
 
 %.c.libk.o: %.c
-	$(CC) -c $< -o $@ $(CCFLAGS_LIBK)
+	@echo " CC  $@"
+	@$(CC) -c $< -o $@ $(CCFLAGS_LIBK)
 
 %.c.libc.o: %.c
-	$(CC) -c $< -o $@ $(CCFLAGS_LIBC)
+	@echo " CC  $@"
+	@$(CC) -c $< -o $@ $(CCFLAGS_LIBC)
  
 clean:
-	rm -f $(objs_libc) $(objs_libk) $(TARGET_LIBK)
+	@echo " RM  $(objs_libc)"
+	@rm -f $(objs_libc) 
+	@echo " RM  $(objs_libk)"
+	@rm -f $(objs_libk) 
+	@echo " RM  $(TARGET_LIBK)"
+	@rm -f $(TARGET_LIBK) 

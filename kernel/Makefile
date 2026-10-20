@@ -25,18 +25,26 @@ TARGET = fausto
 .PHONY: clean
 
 $(TARGET): $(arch_objs) $(asm_objs) $(kernel_objs) $(linker) $(LIBS)
-	$(CC) -T $(linker) -o $@ $(CCLINKFLAGS) $(asm_objs) $(kernel_objs) $(arch_objs) $(LIBS) $(LFLAGS) 
+	@echo " CC  $(TARGET)"
+	@$(CC) -T $(linker) -o $@ $(CCLINKFLAGS) $(asm_objs) $(kernel_objs) $(arch_objs) $(LIBS) $(LFLAGS) 
 
 %.c.o: %.c
-	$(CC) -c $< -o $@ $(CCFLAGS) $(DFLAGS) 
+	@echo " CC  $@"
+	@$(CC) -c $< -o $@ $(CCFLAGS) $(DFLAGS) 
 
 %.S.o: %.S
-	mkdir -p $(ARCHDIR)/build/
-	$(AS) $< -o $@
+	@mkdir -p $(ARCHDIR)/build/
+	
+	@echo " AS  $@"
+	@$(AS) $< -o $@
 
 clean:
-	rm -f $(arch_objs)
-	rm -f $(kernel_objs)
-	rm -f $(asm_objs)
-	rm -f $(TARGET)
+	@echo " RM  $(arch_objs)"
+	@rm -f $(arch_objs)
+	@echo " RM  $(kernel_objs)"
+	@rm -f $(kernel_objs)
+	@echo " RM  $(asm_objs)"
+	@rm -f $(asm_objs)
+	@echo " RM  $(TARGET)"
+	@rm -f $(TARGET)
 

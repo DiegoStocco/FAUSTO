@@ -12,16 +12,23 @@ linker = src/linker.ld
 all: $(TARGET)
 	
 %.S.o: %.S
-	mkdir -p build/ 
-	$(AS) --32 -o $@ $<
+	@echo " MKDIR  build"
+	@mkdir -p build/ 
+	@echo " AS  $@"
+	@$(AS) --32 -o $@ $<
 
 $(TARGET_ELF): $(OBJS) $(linker)
-	$(LD) -m elf_i386 -T $(linker) -o $@ $(OBJS)
+	@echo " LD  $@"
+	@$(LD) -m elf_i386 -T $(linker) -o $@ $(OBJS)
 
 $(TARGET): $(TARGET_ELF)
-	$(OBJCOPY) -O binary $(TARGET_ELF) $@
+	@echo " OBJCOPY  $(TARGET_ELF)"
+	@$(OBJCOPY) -O binary $(TARGET_ELF) $@
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(TARGET)
-	rm -f $(TARGET_ELF)
+	@echo " RM $(OBJS)"
+	@rm -f $(OBJS)
+	@echo " RM $(TARGET)"
+	@rm -f $(TARGET)
+	@echo " RM $(TARGET_ELF)"
+	@rm -f $(TARGET_ELF)

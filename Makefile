@@ -26,24 +26,30 @@ qemu-run:
 	
 
 bootloader:
-	$(MAKE) -C bootloader/
+	@echo "# ------ [ Making bootloader ] ------ #" 
+	@$(MAKE) --no-print-directory -C bootloader/  
 
 kernel: | libc
-	$(MAKE) -C kernel/
+	@echo "# ------ [ Making kernel ] ------ #" 
+	@$(MAKE) --no-print-directory -C kernel/
 
 libc:
-	$(MAKE) -C libc/
+	@echo "# ------ [ Making libc ] ------ #"
+	@$(MAKE) --no-print-directory -C libc/
 
 run: image qemu-run
 
 image: | sub
-	mkdir -p $(IMG_DIR)
-	$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
-	dd if=/dev/zero of=$(IMG) bs=512 count=2880
-	cat $(BOOTLOADER_BIN) $(KERNEL_BIN) > $(IMG)
-	truncate -s 1474560 $(IMG)
+	@mkdir -p $(IMG_DIR)
+	@echo " OBJCOPY  $(KERNEL_BIN)"
+	@$(OBJCOPY) -O binary $(KERNEL) $(KERNEL_BIN)
+	@echo " DD  $(IMG)"
+	@dd if=/dev/zero of=$(IMG) bs=512 count=2880
+	@cat $(BOOTLOADER_BIN) $(KERNEL_BIN) > $(IMG)
+	@truncate -s 1474560 $(IMG)
 clean:
-	rm -rf $(IMG_DIR)
-	$(MAKE) -C bootloader/ clean
-	$(MAKE) -C libc/ clean
-	$(MAKE) -C kernel/ clean
+	@echo " RM $(IMG_DIR)" 
+	@rm -rf $(IMG_DIR)
+	@$(MAKE) --no-print-directory -C bootloader/ clean
+	@$(MAKE) --no-print-directory -C libc/ clean
+	@$(MAKE) --no-print-directory -C kernel/ clean
